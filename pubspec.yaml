@@ -39,6 +39,7 @@ dependencies:
   flutter_modular: ^4.4.0+1
   flutter_plus: ^1.0.0
   dio: ^4.0.4
+  shimmer: ^2.0.0
 
 
 dev_dependencies:

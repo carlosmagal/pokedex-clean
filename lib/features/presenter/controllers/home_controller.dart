@@ -30,6 +30,7 @@ abstract class _HomeControllerBase with Store {
     await _loadFavorites();
     await _getPokemons();
     _loadScrollController();
+    _homeState = HomeState.done;
   }
 
   @observable
@@ -42,7 +43,7 @@ abstract class _HomeControllerBase with Store {
   final ObservableList _favoritesList = ObservableList();
 
   @observable
-  List<PokemonEntity> _pokemons = [];
+  ObservableList<PokemonEntity> _pokemons = ObservableList<PokemonEntity>();
 
   @computed
   List<PokemonEntity> get pokemons => _pokemons;
@@ -51,12 +52,9 @@ abstract class _HomeControllerBase with Store {
   String _searchText = '';
 
   @action
-  setSearchText(String text){
+  setSearchText(String text) {
     _searchText = text;
   }
-
-  // @observable
-  // int page = 0; //Random().nextInt(1110)
 
   @action
   Future<bool> _loadFavorites() async {
@@ -77,14 +75,12 @@ abstract class _HomeControllerBase with Store {
 
   @action
   _getPokemons() async {
-    await _getAllPokemonsUsecase.getAllPokemons(10, 10).then((response) async {
-      if (response == null) {
-        _pokemons = [];
-      }
+    await _getAllPokemonsUsecase.getAllPokemons(0, 10).then((response) async {
       var list = response['results'] as List;
       await _getPokemonDetails(list);
     }).catchError((error) {
       _homeState = HomeState.error;
+      // print(error);
     });
   }
 

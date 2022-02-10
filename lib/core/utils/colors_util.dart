@@ -12,6 +12,7 @@ class ColorsUtil {
   static final textFieldIcon = utilsPlus.colorHex('#CCCCCC');
   static final status = utilsPlus.colorHex('#4A4A4A');
   static final statusLinearProgress = utilsPlus.colorHex('#FB6C6C');
+  static final loadingContainer = utilsPlus.colorHex('E0E0E0');
 
   static const typeCard = Color.fromRGBO(255, 255, 255, 0.3);
   static final pokeballRed = utilsPlus.colorHex('#FE3E31');

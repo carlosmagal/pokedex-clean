@@ -42,15 +42,30 @@ mixin _$HomeController on _HomeControllerBase, Store {
   final _$_pokemonsAtom = Atom(name: '_HomeControllerBase._pokemons');
 
   @override
-  List<PokemonEntity> get _pokemons {
+  ObservableList<PokemonEntity> get _pokemons {
     _$_pokemonsAtom.reportRead();
     return super._pokemons;
   }
 
   @override
-  set _pokemons(List<PokemonEntity> value) {
+  set _pokemons(ObservableList<PokemonEntity> value) {
     _$_pokemonsAtom.reportWrite(value, super._pokemons, () {
       super._pokemons = value;
+    });
+  }
+
+  final _$_searchTextAtom = Atom(name: '_HomeControllerBase._searchText');
+
+  @override
+  String get _searchText {
+    _$_searchTextAtom.reportRead();
+    return super._searchText;
+  }
+
+  @override
+  set _searchText(String value) {
+    _$_searchTextAtom.reportWrite(value, super._searchText, () {
+      super._searchText = value;
     });
   }
 
@@ -90,6 +105,17 @@ mixin _$HomeController on _HomeControllerBase, Store {
 
   final _$_HomeControllerBaseActionController =
       ActionController(name: '_HomeControllerBase');
+
+  @override
+  dynamic setSearchText(String text) {
+    final _$actionInfo = _$_HomeControllerBaseActionController.startAction(
+        name: '_HomeControllerBase.setSearchText');
+    try {
+      return super.setSearchText(text);
+    } finally {
+      _$_HomeControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
 
   @override
   dynamic _loadScrollController() {

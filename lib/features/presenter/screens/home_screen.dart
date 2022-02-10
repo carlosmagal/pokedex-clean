@@ -4,6 +4,7 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_plus/flutter_plus.dart';
 import 'package:pokedex_clean/core/utils/colors_util.dart';
 import 'package:pokedex_clean/features/presenter/controllers/home_controller.dart';
+import 'package:pokedex_clean/features/presenter/widgets/loading_card_widget.dart';
 import 'package:pokedex_clean/features/presenter/widgets/poke_card_widget.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -22,7 +23,7 @@ class HomeScreen extends StatelessWidget {
     });
   }
 
-  _buildAppBar() {
+  AppBar _buildAppBar() {
     return AppBar(
       backgroundColor: ColorsUtil.headerBackground,
       elevation: 0,
@@ -55,18 +56,16 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-  _buildBody() {
+  Widget _buildBody() {
     return Column(
       children: [
         _headerTextField(),
-        Expanded(
-          child: _bodyPokemonList()
-          ),
+        Expanded(child: _bodyPokemonList()),
       ],
     );
   }
 
-  _headerTextField() {
+  Widget _headerTextField() {
     return ContainerPlus(
       radius: RadiusPlus.bottom(20),
       color: ColorsUtil.headerBackground,
@@ -122,29 +121,35 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-  _bodyPokemonList(){
-    return Observer(
-      builder: (context){
-        return ListView.builder(
-          controller: _controller.scrollController,
-          physics: const BouncingScrollPhysics(),
-          padding: const EdgeInsets.only(bottom: 16.0),
-          itemCount: _controller.pokemons.length + 1,
-          keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
-          itemBuilder: (context, index){
-            if(index < _controller.pokemons.length) {
-              return PokeCardWidget(
-                index: index
-              );
-            }
+  Widget _bodyPokemonList() {
+    if (_controller.homeState == HomeState.loading) {
+      return ListView(
+        physics: const NeverScrollableScrollPhysics(),
+        children: const [
+          LoadingCardWidget(type: 'grass'),
+          LoadingCardWidget(type: 'grass'),
+          LoadingCardWidget(type: 'grass'),
+          LoadingCardWidget(type: 'fire'),
+          LoadingCardWidget(type: 'fire'),
+          LoadingCardWidget(type: 'fire'),
+          LoadingCardWidget(type: 'water'),
+          LoadingCardWidget(type: 'water'),
+        ],
+      );
+    }
+    return ListView.builder(
+      controller: _controller.scrollController,
+      physics: const BouncingScrollPhysics(),
+      padding: const EdgeInsets.only(bottom: 16.0),
+      itemCount: _controller.pokemons.length + 1,
+      keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+      itemBuilder: (context, index) {
+        if (index < _controller.pokemons.length) {
+          return PokeCardWidget(index: index);
+        }
 
-            // if(_controller.hasMoreToLoad)
-            //   return this._loadingContainer();
-
-            return Container();
-          }
-        );
-      }
+        return Container();
+      },
     );
   }
 }
