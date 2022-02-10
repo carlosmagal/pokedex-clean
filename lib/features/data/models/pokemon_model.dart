@@ -58,4 +58,9 @@ class PokemonModel extends PokemonEntity {
 
     return typeList;
   }
+
+  @override 
+  String toString(){
+    return 'PokemonModel: {name: $name, imgUrl: $imgUrl, id: $id, types: $types, stats: $stats';
+  }
 }

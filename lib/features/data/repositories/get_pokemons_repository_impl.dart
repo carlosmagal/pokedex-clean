@@ -1,5 +1,5 @@
 import 'package:pokedex_clean/core/errors/exceptions.dart';
-import 'package:pokedex_clean/features/data/datasources/pokemon_datasource.dart';
+import 'package:pokedex_clean/features/data/datasources/pokemon_datasource/pokemon_datasource.dart';
 import 'package:pokedex_clean/features/domain/repositories/get_pokemons_repository.dart';
 
 class GetPokemonsRepositoryImpl implements GetPokemonsRepository {
