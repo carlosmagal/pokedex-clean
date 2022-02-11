@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:mobx/mobx.dart';
 import 'package:pokedex_clean/features/data/models/pokemon_model.dart';
@@ -44,6 +46,9 @@ abstract class _HomeControllerBase with Store {
 
   @observable
   ObservableList<PokemonEntity> _pokemons = ObservableList<PokemonEntity>();
+
+  @action
+  setPokemons(pokelist) => _pokemons = pokelist;
 
   @computed
   List<PokemonEntity> get pokemons => _pokemons;
@@ -101,7 +106,7 @@ abstract class _HomeControllerBase with Store {
         ));
       });
     }
-
+    _pokemons.clear();
     _pokemons.addAll(poke);
   }
 
@@ -109,5 +114,54 @@ abstract class _HomeControllerBase with Store {
     return _favoritesList
         .where((element) => element['name'] == name)
         .isNotEmpty;
+  }
+
+  @action
+  saveFavorite(int index) async {
+    _pokemons[index].isFavorite = !_pokemons[index].isFavorite;
+    final poke = _pokemons[index] as PokemonModel;
+
+    if (poke.isFavorite) {
+      if (_favoritesHavePokemon(poke.name)) {
+        return;
+      } else {
+        _favoritesList.add(poke.toMap());
+      }
+    } else {
+      if (_favoritesHavePokemon(poke.name)) {
+        _favoritesList.removeWhere((element) => element['name'] == poke.name);
+      }
+    }
+
+    if (_homeState == HomeState.filtering) {
+      _pokemons.removeWhere((element) => element.name == poke.name);
+    }
+
+    await _favoritesUsecase.deleteFavorites();
+    await _favoritesUsecase.saveFavorites(json.encode(_favoritesList));
+  }
+
+  @action
+  showFavorites() async {
+
+    if (_homeState == HomeState.filtering) {
+      _homeState = HomeState.loading;
+      _getPokemons();
+      await Future.delayed(const Duration(seconds: 2), () => _homeState = HomeState.intial);
+      return;
+    }
+
+    _homeState = HomeState.loading;
+    _pokemons.clear();
+
+    for (var element in _favoritesList) {
+      if(element['isFavorite']) {
+        _pokemons.add(PokemonModel.fromFavoritesMap(element));
+      }
+    }
+
+    _pokemons.sort(((a, b) => a.id.compareTo(b.id)));
+    await Future.delayed(const Duration(seconds: 2), () => _homeState = HomeState.filtering);
+    
   }
 }

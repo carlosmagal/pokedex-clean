@@ -142,8 +142,7 @@ class _PokeCardWidgetState extends State<PokeCardWidget>
   }
 
   _setFavorite() async {
+    _controller.saveFavorite(widget.index);
     setState(() {});
-
-    // await widget.setIsFavorite(widget.pokemon);
   }
 }

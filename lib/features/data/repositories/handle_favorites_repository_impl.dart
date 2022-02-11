@@ -1,6 +1,5 @@
 import 'package:pokedex_clean/core/errors/exceptions.dart';
 import 'package:pokedex_clean/features/data/datasources/handle_favorites_datasource/handle_favorites_datasource.dart';
-import 'package:pokedex_clean/features/domain/entities/pokemon_entity.dart';
 import 'package:pokedex_clean/features/domain/repositories/handle_favorites_repository.dart';
 
 class HandleFavoritesRepositoryImpl implements HandleFavoritesRepository {
@@ -27,7 +26,7 @@ class HandleFavoritesRepositoryImpl implements HandleFavoritesRepository {
   }
 
   @override
-  Future saveFavorites(PokemonEntity pokemon) async {
+  Future saveFavorites(String pokemon) async {
     try {
       final result = await _datasource.saveFavorites(pokemon);
       return result;

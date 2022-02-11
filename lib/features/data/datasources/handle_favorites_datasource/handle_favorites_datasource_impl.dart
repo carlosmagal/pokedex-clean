@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:flutter_plus/flutter_plus.dart';
 import 'package:pokedex_clean/core/errors/exceptions.dart';
 import 'package:pokedex_clean/features/data/datasources/handle_favorites_datasource/handle_favorites_datasource.dart';
-import 'package:pokedex_clean/features/domain/entities/pokemon_entity.dart';
 
 class HandleFavoritesDatasourceImpl implements HandleFavoritesDatasource {
   static const localStoragePath = 'favorites';
@@ -29,14 +28,13 @@ class HandleFavoritesDatasourceImpl implements HandleFavoritesDatasource {
   }
 
   @override
-  Future saveFavorites(PokemonEntity pokemon) async {
-    final response =
-        await localStoragePlus.write(localStoragePath, json.encode(pokemon));
-    
-    if (response == null) {
+  Future saveFavorites(String pokemon) async {
+    try {
+      await localStoragePlus.write(localStoragePath, pokemon);
+      return true;
+      
+    } catch (e) {
       throw SavingFavoriteException();
     }
-
-    return true;
   }
 }

@@ -40,7 +40,7 @@ class HomeScreen extends StatelessWidget {
             onTap: _controller.homeState == HomeState.loading
                 ? null
                 : () {
-                    // _controller.changeToFiltered();
+                    _controller.showFavorites();
                   },
             child: Icon(
               _controller.homeState == HomeState.filtering
@@ -85,7 +85,8 @@ class HomeScreen extends StatelessWidget {
         height: 48,
         backgroundColor: ColorsUtil.textField,
         cursorColor: ColorsUtil.cinzaEscuro,
-        enabled: _controller.homeState == HomeState.loading,
+        enabled: _controller.homeState != HomeState.loading &&
+            _controller.homeState != HomeState.filtering,
         radius: RadiusPlus.all(12),
         maxLength: 30,
         textInputAction: TextInputAction.search,
@@ -126,13 +127,13 @@ class HomeScreen extends StatelessWidget {
       return ListView(
         physics: const NeverScrollableScrollPhysics(),
         children: const [
+          LoadingCardWidget(type: 'rock'),
+          LoadingCardWidget(type: 'electric'),
+          LoadingCardWidget(type: 'dragon'),
+          LoadingCardWidget(type: 'ghost'),
+          LoadingCardWidget(type: 'ice'),
+          LoadingCardWidget(type: 'poison'),
           LoadingCardWidget(type: 'grass'),
-          LoadingCardWidget(type: 'grass'),
-          LoadingCardWidget(type: 'grass'),
-          LoadingCardWidget(type: 'fire'),
-          LoadingCardWidget(type: 'fire'),
-          LoadingCardWidget(type: 'fire'),
-          LoadingCardWidget(type: 'water'),
           LoadingCardWidget(type: 'water'),
         ],
       );

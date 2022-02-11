@@ -17,7 +17,10 @@ class PokemonModel extends PokemonEntity {
           isFavorite: isFavorite,
         );
 
-  factory PokemonModel.fromJson(Map<String, dynamic> json, {bool value = false}) =>
+  factory PokemonModel.fromJson(
+    Map<String, dynamic> json, {
+    bool value = false,
+  }) =>
       PokemonModel(
         name: json['name'],
         id: json['id'],
@@ -25,6 +28,16 @@ class PokemonModel extends PokemonEntity {
         types: _getTypes(json['types']),
         stats: _getStats(json['stats']),
         isFavorite: value,
+      );
+
+  factory PokemonModel.fromFavoritesMap(Map<String, dynamic> json) =>
+      PokemonModel(
+        name: json['name'],
+        id: json['id'],
+        imgUrl: json['imgUrl'],
+        types: json['types'],
+        stats: json['stats'],
+        isFavorite: json['isFavorite'],
       );
 
   Map<String, dynamic> toMap() {
@@ -59,8 +72,8 @@ class PokemonModel extends PokemonEntity {
     return typeList;
   }
 
-  @override 
-  String toString(){
+  @override
+  String toString() {
     return 'PokemonModel: {name: $name, imgUrl: $imgUrl, id: $id, types: $types, stats: $stats';
   }
 }

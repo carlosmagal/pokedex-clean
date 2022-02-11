@@ -1,4 +1,3 @@
-import 'package:pokedex_clean/features/domain/entities/pokemon_entity.dart';
 import 'package:pokedex_clean/features/domain/repositories/handle_favorites_repository.dart';
 import 'package:pokedex_clean/features/domain/usecases/save_favorite/handle_favorites_usecase.dart';
 
@@ -19,7 +18,7 @@ class HandleFavoritesUsecaseImpl implements HandleFavoritesUsecase {
 
   @override
   Future saveFavorites(
-    PokemonEntity pokemon, {
+    String pokemon, {
     bool changeIsFavorite = true,
   }) async {
     return _repository.saveFavorites(pokemon);

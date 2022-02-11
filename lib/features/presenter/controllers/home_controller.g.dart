@@ -103,8 +103,35 @@ mixin _$HomeController on _HomeControllerBase, Store {
         .run(() => super._getPokemonDetails(list));
   }
 
+  final _$saveFavoriteAsyncAction =
+      AsyncAction('_HomeControllerBase.saveFavorite');
+
+  @override
+  Future saveFavorite(int index) {
+    return _$saveFavoriteAsyncAction.run(() => super.saveFavorite(index));
+  }
+
+  final _$showFavoritesAsyncAction =
+      AsyncAction('_HomeControllerBase.showFavorites');
+
+  @override
+  Future showFavorites() {
+    return _$showFavoritesAsyncAction.run(() => super.showFavorites());
+  }
+
   final _$_HomeControllerBaseActionController =
       ActionController(name: '_HomeControllerBase');
+
+  @override
+  dynamic setPokemons(dynamic pokelist) {
+    final _$actionInfo = _$_HomeControllerBaseActionController.startAction(
+        name: '_HomeControllerBase.setPokemons');
+    try {
+      return super.setPokemons(pokelist);
+    } finally {
+      _$_HomeControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
 
   @override
   dynamic setSearchText(String text) {
