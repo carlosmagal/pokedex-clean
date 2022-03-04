@@ -118,6 +118,8 @@ abstract class _HomeControllerBase with Store {
 
   @action
   saveFavorite(int index) async {
+    if (_pokemons.isEmpty) return;
+
     _pokemons[index].isFavorite = !_pokemons[index].isFavorite;
     final poke = _pokemons[index] as PokemonModel;
 
@@ -143,11 +145,13 @@ abstract class _HomeControllerBase with Store {
 
   @action
   showFavorites() async {
-
     if (_homeState == HomeState.filtering) {
       _homeState = HomeState.loading;
       _getPokemons();
-      await Future.delayed(const Duration(seconds: 2), () => _homeState = HomeState.intial);
+      await Future.delayed(
+        const Duration(seconds: 2),
+        () => _homeState = HomeState.intial,
+      );
       return;
     }
 
@@ -155,13 +159,15 @@ abstract class _HomeControllerBase with Store {
     _pokemons.clear();
 
     for (var element in _favoritesList) {
-      if(element['isFavorite']) {
+      if (element['isFavorite']) {
         _pokemons.add(PokemonModel.fromFavoritesMap(element));
       }
     }
 
     _pokemons.sort(((a, b) => a.id.compareTo(b.id)));
-    await Future.delayed(const Duration(seconds: 2), () => _homeState = HomeState.filtering);
-    
+    await Future.delayed(
+      const Duration(seconds: 2),
+      () => _homeState = HomeState.filtering,
+    );
   }
 }

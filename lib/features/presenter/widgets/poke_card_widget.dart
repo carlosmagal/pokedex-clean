@@ -8,10 +8,12 @@ import 'package:pokedex_clean/features/presenter/widgets/type_card_widget.dart';
 class PokeCardWidget extends StatefulWidget {
   const PokeCardWidget({
     required this.index,
+    required this.id,
     Key? key,
   }) : super(key: key);
 
   final int index;
+  final int id;
 
   @override
   _PokeCardWidgetState createState() => _PokeCardWidgetState();
@@ -48,13 +50,12 @@ class _PokeCardWidgetState extends State<PokeCardWidget>
       opacity: _animation,
       child: ContainerPlus(
         onTap: () async {
-          // await navigatorPlus.showModal(
-          //   DetalheScreen(
-          //     widget.pokemon,
-          //     _setFavorite,
-          //     widget.isFiltering
-          //   ),
-          // );
+          await Modular.to.pushNamed(
+            '/details',
+            arguments: [widget.index],
+          );
+
+          setState(() {});
 
           //caso esteja filtrando e o favorito do pokemon seja false, ele tira da lista
           // if(widget.isFiltering && !widget.pokemon.isFavorite!)
@@ -84,7 +85,7 @@ class _PokeCardWidgetState extends State<PokeCardWidget>
     );
   }
 
-  _cardLeft(String id, String name) {
+  Widget _cardLeft(String id, String name) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -116,7 +117,7 @@ class _PokeCardWidgetState extends State<PokeCardWidget>
     );
   }
 
-  _cardRight(String image, int id) {
+  Widget _cardRight(String image, int id) {
     return Row(
       children: [
         Hero(
@@ -126,17 +127,18 @@ class _PokeCardWidgetState extends State<PokeCardWidget>
           ),
         ),
         Align(
-            alignment: Alignment.topLeft,
-            child: GestureDetector(
-              onTap: _setFavorite,
-              child: Icon(
-                _controller.pokemons[widget.index].isFavorite
-                    ? Icons.favorite
-                    : Icons.favorite_border_outlined,
-                size: 20,
-                color: ColorsUtil.white,
-              ),
-            ))
+          alignment: Alignment.topLeft,
+          child: GestureDetector(
+            onTap: _setFavorite,
+            child: Icon(
+              _controller.pokemons[widget.index].isFavorite
+                  ? Icons.favorite
+                  : Icons.favorite_border_outlined,
+              size: 20,
+              color: ColorsUtil.white,
+            ),
+          ),
+        )
       ],
     );
   }

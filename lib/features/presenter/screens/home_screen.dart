@@ -146,7 +146,10 @@ class HomeScreen extends StatelessWidget {
       keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
       itemBuilder: (context, index) {
         if (index < _controller.pokemons.length) {
-          return PokeCardWidget(index: index);
+          return PokeCardWidget(
+            id: _controller.pokemons[index].id,
+            index: index,
+          );
         }
 
         return Container();

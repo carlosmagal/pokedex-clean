@@ -26,6 +26,11 @@ class AppModule extends Module {
   @override
   List<ModularRoute> get routes => [
         ChildRoute('/', child: (_, __) => HomeScreen()),
-        ChildRoute('/details', child: (_, __) => const DetailsScreen()),
+        ChildRoute(
+          '/details',
+          child: (_, args) => DetailsScreen(
+            index: args.data[0],
+          ),
+        ),
       ];
 }
