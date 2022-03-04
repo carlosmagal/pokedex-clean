@@ -40,7 +40,23 @@ dependencies:
   flutter_plus: ^1.0.0
   dio: ^4.0.4
   shimmer: ^2.0.0
+  firebase_core: ^1.13.1
+  flutter_native_splash:
+  flutter_launcher_icons:
 
+
+flutter_native_splash:
+  color: FFFFFF
+  image_path: "assets/pokeball-logo.png"
+  android: true
+  ios: true
+
+
+flutter_icons:
+  android: true
+  ios: true
+  image_path: "assets/pokeball-logo.png"
+  adaptive_icon_background: "#FFFFFF"
 
 dev_dependencies:
   flutter_test:

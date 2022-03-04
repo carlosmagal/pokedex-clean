@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "655939252720",
+    "project_id": "pokedex-teste-7461c",
+    "storage_bucket": "pokedex-teste-7461c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:655939252720:android:3bea95c05da8bb71abad35",
+        "android_client_info": {
+          "package_name": "com.example.pokedex_clean"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "655939252720-2b93j3idmj7b98h6922jargnenauitcc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyALPgIJV_uL33Ng76oVYQdJwGhayLjteQY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "655939252720-2b93j3idmj7b98h6922jargnenauitcc.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "655939252720-jld3ig2cem5c8qkq30fh2g68cl1mui35.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.podekedex-clean"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
