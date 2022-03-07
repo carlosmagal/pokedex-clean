@@ -1,3 +1,3 @@
 # pokedex_clean
 
-A Flutter pokedex using Clean architecture, MobX and Modular.
+A Flutter pokedex using Clean architecture, MobX, Modular and Firebase.
