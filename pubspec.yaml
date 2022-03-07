@@ -43,6 +43,8 @@ dependencies:
   firebase_core: ^1.13.1
   flutter_native_splash:
   flutter_launcher_icons:
+  firebase_messaging: ^11.2.8
+  flutter_local_notifications: ^9.4.0
 
 
 flutter_native_splash:
